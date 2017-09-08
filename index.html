@@ -8,10 +8,60 @@
   <link type="text/css" rel="stylesheet" href="index.css" />
   <script src="https://cdn.bootcss.com/echarts/3.7.0/echarts.common.min.js" defer></script>
   <script src="index.js" defer></script>
+  <style type="text/css">
+    div {
+      border: 1px solid black;
+      margin: 30px;
+      padding: 10px;
+      float: left;
+    }
+  </style>
 </head>
-
 <body>
+  <div id="panel"><!--图标结构选择-->
+    <h3>图表选项</h3>
+    <form>
+      <input name="title" type="text" placeholder="图标标题"><!--图标标题-->
+      <select name="type"><!--图标类型选择-->
+        <option value="pie">饼形图</option>
+        <option value="pie">折线图</option>
+        <option value="bar">条形图</option>
+        <option value="rader">雷达图</option>
+      </select>
+      <br>
+      <input name="xAxis" type="text" placeholder="横坐标轴标题"><!--横坐标标题-->
+      <input name="yAxis" type="text" placeholder="纵坐标轴标题"><!--纵坐标标题-->
+    </form>
+  </div>
+  <div id="dataInput"><!--数据输入区域-->
+    <h3>输入数据</h3>
+    <form>
+      <input name="key" type="text" placeholder="key">
+      <input name="value" type="text" placeholder="value">
+      <input type="submit" value="提交数据">
+    </form>
+  </div>
+  <div id="dataDisp"><!--数据表格--><!--此处不会根据上面的输入值来变动表格行数-->
+    <h3>已录入数据</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>key</th>
+          <th>value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>key1</td>
+          <td>value1</td>
+        </tr>
+        <tr>
+          <td>key1</td>
+          <td>value1</td>
+       </tr>
+      </tbody>
+    </table>
+  </div>
   <div id="echarts" style="width: 600px; height:400px;"></div>
 </body>
-
 </html>
