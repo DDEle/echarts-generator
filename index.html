@@ -18,9 +18,8 @@
   </style>
 </head>
 <body>
-  <div id="panel"><!--图标结构选择-->
+  <div id="panel"><!--图表结构选择-->
     <h3>图表选项</h3>
-    <form>
       <input name="title" type="text" placeholder="图标标题"><!--图标标题-->
       <select name="type"><!--图标类型选择-->
         <option value="pie">饼形图</option>
@@ -31,15 +30,12 @@
       <br>
       <input name="xAxis" type="text" placeholder="横坐标轴标题"><!--横坐标标题-->
       <input name="yAxis" type="text" placeholder="纵坐标轴标题"><!--纵坐标标题-->
-    </form>
-  </div>
+  </div><!--图表结构选择-->
   <div id="dataInput"><!--数据输入区域-->
     <h3>输入数据</h3>
-    <form>
-      <input name="key" type="text" placeholder="key">
-      <input name="value" type="text" placeholder="value">
-      <input type="submit" value="提交数据">
-    </form>
+      <input id="key" type="text" placeholder="key">
+      <input id="value" type="text" placeholder="value">
+    <button onclick="submitData()">提交数据</button>
   </div>
   <div id="dataDisp"><!--数据表格--><!--此处不会根据上面的输入值来变动表格行数-->
     <h3>已录入数据</h3>

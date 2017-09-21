@@ -20,3 +20,14 @@ var myChart = echarts.init(document.getElementById('echarts'));
         };
         
         myChart.setOption(option);
+function submitData(){
+    var tableAdder = document.getElementById("key");
+    var key = tableAdder.value;
+    tableAdder.value=''
+
+}
+
+function foo() {
+    var text = document.getElementById("myName");
+    alert('text');
+}
