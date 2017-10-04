@@ -11,44 +11,59 @@
 <body>
   <div id="panel"><!--图表结构选择-->
     <h3>图表选项</h3>
-    <input name="title" type="text" placeholder="图标标题"><!--图标标题-->
-      <select name="type"> <!--图标类型选择-->
+    <input id="title" type="text" placeholder="图标标题" onchange="chTitle()"><!--图标标题-->
+      <select id="type" onchange="chType()"> <!--图标类型选择-->
         <option value="pie">饼形图</option>
         <option value="pie">折线图</option>
         <option value="bar">条形图</option>
         <option value="rader">雷达图</option>
       </select>
       <br>
-      <input name="xAxis" type="text" placeholder="横坐标轴标题"><!--横坐标标题-->
-      <input name="yAxis" type="text" placeholder="纵坐标轴标题"><!--纵坐标标题-->
+      <input id="xAxis" type="text" placeholder="横坐标轴标题" onchange="chXAxis()"><!--横坐标标题-->
+      <input id="yAxis" type="text" placeholder="纵坐标轴标题" onchange="chYAxis()"><!--纵坐标标题-->
   </div><!--图表结构选择-->
-  <div id="dataInput"><!--数据输入区域-->
-    <h3>输入数据</h3>
-      <input id="key" type="text" placeholder="key">
-      <input id="value" type="text" placeholder="value">
-    <button onclick="submitData()">提交数据</button>
-  </div>
+
+
   <div id="dataDisp"><!--数据表格--><!--此处不会根据上面的输入值来变动表格行数-->
-    <h3>已录入数据</h3>
-    <table>
-      <thead>
+    <h3>数据</h3>
+    <table id="table">
+      <thead id="tableHead">
         <tr>
-          <th>key</th>
-          <th>value</th>
+          <th id="keyHead">key</th>
+          <th id="valueHead">value</th>
+          <th>删除按钮</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="tableBody">
         <tr>
-          <td>key1</td>
-          <td>value1</td>
+          <td class="keys">示例数据1</td>
+          <td class="values">2017</td>
+          <td><button onclick="deleteData(this);chData()">－</button></td>
         </tr>
         <tr>
-          <td>key1</td>
-          <td>value1</td>
-       </tr>
+          <td class="keys">示例数据2</td>
+          <td class="values">2233</td>
+          <td><button onclick="deleteData(this);chData()">－</button></td>
+        </tr>
+        <tr>
+          <td>
+            <input id="keyInput" type="text" placeholder="在此输入key">
+          </td>
+          <td>
+            <input id="valueInput" type="number" placeholder="在此输入value">
+          </td>
+          <td>
+              <button onclick="submitData(this);chData()">＋</button>
+          </td>
+        </tr>
+
+
       </tbody>
     </table>
   </div>
+
+
   <div id="echarts"></div>
+
 </body>
 </html>

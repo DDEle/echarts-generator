@@ -7,9 +7,33 @@
 
 #echarts {
     width: 600px;
-    height:400px;
+    height: 400px;
 }
 
 #dataDisp {
 
+}
+
+#table, #table * {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 2px 10px 2px 10px;
+    font-size: 15px;
+}
+
+#keyHead, #keyInput {width: 100px;}
+#valueHead, #valueInput {width: 200px;}
+
+#keyInput, #valueInput {
+    padding: 0;
+    margin: 0;
+}
+
+#tableBody tr:last-child td:nth-child(1), #tableBody tr:last-child td:nth-child(2) { padding: 0; }
+
+#table input {
+    width: auto;
+    height: auto;
+    border-style: none;
+    padding: 2px 10px 2px 10px;
 }
