@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,20 +7,12 @@
   <link type="text/css" rel="stylesheet" href="index.css" />
   <script src="https://cdn.bootcss.com/echarts/3.7.0/echarts.common.min.js" defer></script>
   <script src="index.js" defer></script>
-  <style type="text/css">
-    div {
-      border: 1px solid black;
-      margin: 30px;
-      padding: 10px;
-      float: left;
-    }
-  </style>
 </head>
 <body>
   <div id="panel"><!--图表结构选择-->
     <h3>图表选项</h3>
-      <input name="title" type="text" placeholder="图标标题"><!--图标标题-->
-      <select name="type"><!--图标类型选择-->
+    <input name="title" type="text" placeholder="图标标题"><!--图标标题-->
+      <select name="type"> <!--图标类型选择-->
         <option value="pie">饼形图</option>
         <option value="pie">折线图</option>
         <option value="bar">条形图</option>
@@ -58,6 +49,6 @@
       </tbody>
     </table>
   </div>
-  <div id="echarts" style="width: 600px; height:400px;"></div>
+  <div id="echarts"></div>
 </body>
 </html>
