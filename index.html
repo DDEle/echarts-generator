@@ -145,22 +145,22 @@
       <tr>
         <td class="keys">示例数据1</td>
         <td class="values">2017</td>
-        <td><button onclick="deleteLine(this);chData()">－</button></td>
+        <td><button onclick="deleteLine(this)/*;chData()*/">－</button></td>
       </tr>
       <tr>
         <td class="keys">示例数据2</td>
         <td class="values">2233</td>
-        <td><button onclick="deleteLine(this);chData()">－</button></td>
+        <td><button onclick="deleteLine(this)/*;chData()*/">－</button></td>
       </tr>
       <tr>
         <td>
-          <input id="keyInput" type="text" placeholder="在此输入key">
+          <input id="pieKeyInput" type="text" placeholder="在此输入key">
         </td>
         <td>
-          <input id="valueInput" type="number" placeholder="在此输入value">
+          <input id="pieValueInput" type="number" placeholder="在此输入value">
         </td>
         <td class="submitCell">
-          <button onclick="submitData(this);chData()">＋</button>
+          <button onclick="submitPieData(this)/*;chData()*/">＋</button>
         </td>
       </tr>
       </tbody>
@@ -194,7 +194,7 @@
       </tr>
       <tr>
         <td id="lineSeriesNamesChCell" class="seriesNamesChCell">
-          <input list="lineSeries">
+          <input type="text" list="lineSeries">
           <datalist id="lineSeries">
             <option value="系列1" class="lineSeriesOps">
           </datalist>
@@ -225,29 +225,28 @@
           values
           <div id="addRadarIndiBox">
             <input id="addRadarIndi" placeholder="新增指标">
-            <button>＋</button>
+            <button onclick="addCol()">＋</button>
           </div>
         </th>
         <th rowspan="2"> ＋/－ </th>
       </tr>
       <tr>
         <th>
-          指标1<button>－</button>
+          指标1<button onclick="delCol(this, 1)">－</button>
         </th>
         <th>
-          指标1<button>－</button>
+          指标2<button onclick="delCol(this, 2)">－</button>
         </th>
         <th>
-          指标1<button>－</button>
+          指标3<button onclick="delCol(this, 3)">－</button>
         </th>
         <th>
-          指标1<button>－</button>
+          指标4<button onclick="delCol(this, 4)">－</button>
         </th>
         <th>
-          指标1<button>－</button>
+          指标5<button onclick="delCol(this, 5)">－</button>
         </th>
       </tr>
-
       </thead>
       <tbody id="radarTableBody">
       <tr class="S/VGroups">
@@ -257,7 +256,8 @@
         <td class="values">3</td>
         <td class="values">5</td>
         <td class="values">2</td>
-        <td><button onclick="deleteData(this);chData()">－</button></td>
+        <td><button onclick="deleteLine(this);updateRadarOps()">－</button></td>
+        <!--如果改动上一行 相应要改动 addRow函数-->
       </tr>
       <tr class="S/VGroups">
         <td class="seriesNames">系列1</td>
@@ -266,8 +266,10 @@
         <td class="values">3</td>
         <td class="values">5</td>
         <td class="values">2</td>
-        <td><button onclick="deleteData(this);chData()">－</button></td>
+        <td><button onclick="deleteLine(this);updateRadarOps()">－</button></td>
       </tr>
+      </tbody>
+      <tfoot>
       <tr>
         <td id="radarSeriesNamesChCell" class="seriesNamesChCell">
           <input list="radarSeries" placeholder="输入/选择">
@@ -280,11 +282,11 @@
         <td><input class="valueInputs" type="number" placeholder="指标的值"></td>
         <td><input class="valueInputs" type="number" placeholder="指标的值"></td>
         <td><input class="valueInputs" type="number" placeholder="指标的值"></td>
-        <td class="submitCell">
-          <button onclick="submitRadarData(this)/*用于修改数据表*/;chRadarData()/*用于修改charts*/">＋</button>
+        <td class="submitCell" ><!--如果要改这个标签的属性需要同时改动JS-->
+          <button onclick="submitRadarData(this)/*用于修改数据表*//*;chRadarData()用于修改charts*/">＋</button>
         </td>
       </tr>
-      </tbody>
+      </tfoot>
     </table>
   </div>
 

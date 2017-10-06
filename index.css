@@ -37,8 +37,14 @@
 }
 .dataDisp tr:last-child td:nth-child(1),/*输入框所在单元格*/
 .dataDisp tr:last-child td:nth-child(2),
-.dataDisp tr:last-child td:nth-child(3){
+.dataDisp tr:last-child td:nth-child(3),
+.dataDisp tfoot td {
     padding: 0;
+}
+#radarDataDisp tbody tr:last-child td:nth-child(1),/*雷达图特殊情况*/
+#radarDataDisp tbody tr:last-child td:nth-child(2),
+#radarDataDisp tbody tr:last-child td:nth-child(3){
+    padding: 2px 0 2px 10px;
 }
 
 
@@ -88,6 +94,9 @@
     height: 100%;
     border-style: none;
 }
-#radarDataDisp tbody tr:last-child td /*最后一行（输入行）*/{
+
+
+/*
+#radarDataDisp tbody tr:last-child td !*最后一行（输入行）*!{
     padding: 0;
-}
+}*/

@@ -3,11 +3,9 @@ var xAxis;
 var yAxis;
 var type;
 
-function deleteLine(thisButton) {
-    var deleteThis = thisButton.parentNode.parentNode;
-    deleteThis.parentNode.removeChild(deleteThis);
-}
-function reRepeat(seriesNames) {
+function delObj(Obj) {Obj.parentNode.removeChild(Obj);}
+function deleteLine(thisButton) {delObj(thisButton.parentNode.parentNode);}
+function reRepeat(seriesNames) /*remove repeated elements from a given list*/{
     var arr = [];  
     for(var i = 0; i < seriesNames.length; i++){
         if(arr.indexOf(seriesNames[i]) === -1){
@@ -22,7 +20,7 @@ function reRepeat(seriesNames) {
 var barRows = document.querySelectorAll('#barDataDisp tbody tr');
 var newBarRow = barRows[0].innerHTML;/*第一行内部代码*/
 var barInputRow = barRows[barRows.length - 1].innerHTML;
-function barSeriesNames() /*获得含有所有SeriesName的数组*/{
+function barSeriesNames() /*获得  含有所有SeriesName的数组*/{
     var Names = [];
     var seriesObj = document.querySelectorAll('#barDataDisp .seriesNames'); /*第一列的单元格们*/
     for (var i = 0; i < seriesObj.length; i++){
@@ -41,7 +39,6 @@ function updateBarOps() {
     var onlyBarSNs = reRepeat(barSeriesNames());
     document.querySelectorAll('#barSeries')[0].innerHTML = barOptionCode(onlyBarSNs);
 }
-
 function submitBarData() {
     var series = document.querySelectorAll('#barSeriesNamesChCell input')[0].value;
     var key = document.querySelectorAll("#barKeyInput")[0].value;
@@ -59,6 +56,23 @@ function submitBarData() {
 }
 
 
+
+/*about pieChart table update*/
+var pieRows = document.querySelectorAll('#pieDataDisp tbody tr');
+var newPieRow = pieRows[0].innerHTML;/*表格第一行内部代码*/
+var pieInputRow = pieRows[pieRows.length - 1].innerHTML;/*表格最后一行内部代码*/
+function submitPieData() {
+    var key = document.querySelectorAll("#pieKeyInput")[0].value;
+    var value = document.querySelectorAll("#pieValueInput")[0].value;
+    deleteLine(document.querySelectorAll("#pieDataDisp .submitCell button")[0]);
+    document.querySelectorAll('#pieDataDisp tbody')[0].innerHTML +=
+        '<tr>' + newPieRow + '</tr>' + /*倒数第二行*/
+        '<tr>' + pieInputRow + '</tr>'; /*最后一行*/
+    var nowRows = document.querySelectorAll('#pieDataDisp tbody tr');
+    var lastDataRow = nowRows[nowRows.length - 2];
+    lastDataRow.querySelectorAll('td')[0].innerHTML = key;
+    lastDataRow.querySelectorAll('td')[1].innerHTML = value;/*finished inserting a new pie with data*/
+}
 
 
 
@@ -85,7 +99,6 @@ function updateLineOps() {
     var onlyLineSNs = reRepeat(lineSeriesNames());
     document.querySelectorAll('#lineSeries')[0].innerHTML = lineOptionCode(onlyLineSNs);
 }
-
 function submitLineData() {
     var series = document.querySelectorAll('#lineSeriesNamesChCell input')[0].value;
     var key = document.querySelectorAll("#lineKeyInput")[0].value;
@@ -101,6 +114,104 @@ function submitLineData() {
     lastDataRow.querySelectorAll('td')[2].innerHTML = value;/*finished inserting a new line with data*/
     updateLineOps();
 }
+
+
+
+/*about radarChart table update*/
+/*del a indicator*/
+function delCol(thisButton, colNum) {
+    var rows = document.querySelectorAll('#radarDataDisp tr');
+    /*del the data cells first*/
+    for (var i = 2; i < rows.length; i++){
+        var deleteThis = rows[i].getElementsByTagName('td')[colNum];
+        delObj(deleteThis);
+    }
+    /*than delete the cell containing the button*/
+    delObj(thisButton.parentNode);
+    /*decrease the colspan at last*/
+    var newColspan = Number(document.querySelectorAll("#radarValueHead")[0].getAttribute("colspan")) - 1;
+    document.querySelectorAll("#radarValueHead")[0].setAttribute('colspan', newColspan);
+    /*reorder the argument for identifying finally*/
+    resetRadarColNum();
+}
+function resetRadarColNum() {
+    var radarIndiButtons = document.querySelectorAll('#radarTableHead button');
+    for (var i = 1; i < radarIndiButtons.length; i++) {
+        radarIndiButtons[i].setAttribute('onclick','delRow(this,' + i + ')');
+    }
+}
+/*add a indicator*/
+function addCol () {
+    /*get the new indicator name*/
+    var newIndi = document.querySelectorAll('#addRadarIndi')[0].value;
+    /*increase the colspan*/
+    var newColspan = Number(document.querySelectorAll("#radarValueHead")[0].getAttribute("colspan")) + 1;
+    document.querySelectorAll("#radarValueHead")[0].setAttribute('colspan', newColspan);
+    /*add indicators' row*/
+    var radarIndis = document.querySelectorAll("#radarDataDisp thead tr")[1];
+    radarIndis.innerHTML += '<th>' +
+        newIndi + '<button onclick="delCol(this, 0)">－</button>' +
+        '</th>';
+    /*add data cells' row*/
+    var radarDatas = document.querySelectorAll("#radarDataDisp tbody tr");
+    var delRowButtonCellHtml = '<td class="values"></td>' +
+        '<td><button onclick="deleteLine(this); updateRadarOps()">－</button></td>';
+    for (var i = 0; i < radarDatas.length; i++) {
+        var thisRow = radarDatas[i];
+        var radarDataCells = thisRow.querySelectorAll('td');
+        delObj(radarDataCells[radarDataCells.length-1]);
+        thisRow.innerHTML += delRowButtonCellHtml
+    }
+    /*add input cells finally*/
+    var addSVButtonHtml = document.querySelectorAll('#radarDataDisp tfoot .submitCell')[0].innerHTML;
+    var inputHtml = document.querySelectorAll('#radarDataDisp tfoot td')[1].innerHTML;
+    delObj(document.querySelectorAll('#radarDataDisp tfoot .submitCell')[0]);
+    document.querySelectorAll('#radarDataDisp tfoot tr')[0].innerHTML += '<td>'+ inputHtml +'</td>' +
+        '<td class="submitCell">' + addSVButtonHtml + '</td>';
+}
+/*update data*/
+var radarRows = document.querySelectorAll('#radarDataDisp tbody tr');
+var newRadarRow = radarRows[0].innerHTML;/*第一行内部代码*/
+var radarInputRow = document.querySelectorAll('#radarDataDisp tfoot tr')[0].innerHTML;
+function radarSeriesNames() /*获得含有所有SeriesName的数组*/{
+    var Names = [];
+    var seriesObj = document.querySelectorAll('#radarDataDisp .seriesNames'); /*第一列的单元格们*/
+    for (var i = 0; i < seriesObj.length; i++){
+        Names.push(seriesObj[i].innerHTML);
+    }
+    return Names;
+}
+function radarOptionCode (SNs) {
+    var code = '';
+    for (var i = 0; i < SNs.length; i++){
+        code += '<option value="'+ SNs[i] +'" class="radarSeriesOps">';
+    }
+    return code;
+}
+function updateRadarOps() {
+    var onlyRadarSNs = reRepeat(radarSeriesNames());
+    document.querySelectorAll('#radarSeries')[0].innerHTML = radarOptionCode(onlyRadarSNs);
+}
+function submitRadarData() {
+    var series = document.querySelectorAll('#radarSeriesNamesChCell input')[0].value;
+    var valueObjs = document.querySelectorAll('#radarDataDisp tfoot .valueInputs');
+    deleteLine(document.querySelectorAll("#radarDataDisp .submitCell button")[0]);
+    /*start to add rows with new data*/
+    document.querySelectorAll('#radarDataDisp tbody')[0].innerHTML +=
+        '<tr>' + newRadarRow + '</tr>';
+    document.querySelectorAll('#radarDataDisp tfoot')[0].innerHTML =
+        '<tr>' + radarInputRow + '</tr>';
+    var nowRows = document.querySelectorAll('#radarDataDisp tbody tr');
+    var lastDataRow = nowRows[nowRows.length - 1];
+    lastDataRow.querySelectorAll('td')[0].innerHTML = series;
+    LRDataCells = lastDataRow.querySelectorAll('td');
+    for (var i = 1; i < LRDataCells.length - 1; i++){
+        LRDataCells[i].innerHTML = valueObjs[i-1].value;
+    }
+    /*just finished inserting a new radar with data*/
+    updateRadarOps();
+}
+
 
 
 
