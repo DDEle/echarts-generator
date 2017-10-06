@@ -1,39 +1,93 @@
-#panel, #dataInput, #dataDisp, #echarts {
-    border: 1px solid black;
-    margin: 30px;
-    padding: 10px;
+.panel, .dataDisp, .echarts {
+    margin: 15px;
+    padding: 3px;
     float: left;
 }
-
-#echarts {
+.echarts {
     width: 600px;
     height: 400px;
+    padding: 15px;
+    border: 1px solid #4b4b4b;
 }
-
-#dataDisp {
-
-}
-
-#table, #table * {
+.panelInput/*输入框区域*/ {
     border: 1px solid black;
+    padding: 4px;
+}
+.panel h3 {margin: 5px 0 5px 3px;} /*输入栏标题*/
+
+
+/*通用表格设置*/
+.dataDisp tbody td:last-child, .submitCell /*表格按钮列(通用)*/{
+    text-align: center;
+}
+.dataDisp tr:nth-child(1) th:last-child /*表格第一行加减号*/{
+    padding-left: 0 ;
+    padding-right: 0 ;
+}
+.dataDisp table, .dataDisp table * /*表格边框、字体*/{
+    border: 1px solid #4b4b4b;
     border-collapse: collapse;
     padding: 2px 10px 2px 10px;
     font-size: 15px;
 }
-
-#keyHead, #keyInput {width: 100px;}
-#valueHead, #valueInput {width: 200px;}
-
-#keyInput, #valueInput {
+.table input /*表格内输入框(通用设置)*/{
+    height: auto;
+    border-style: none;
+    padding: 2px 0 2px 10px;
+}
+.dataDisp tr:last-child td:nth-child(1),/*输入框所在单元格*/
+.dataDisp tr:last-child td:nth-child(2),
+.dataDisp tr:last-child td:nth-child(3){
     padding: 0;
+}
+
+
+/*pieChart表格设置*/
+#pieDataDisp #keyHead, #pieDataDisp #keyInput, #pieDataDisp .keys /*key 列长度*/{width: 160px;}
+#pieDataDisp #valueHead, #pieDataDisp #valueInput, #pieDataDisp .values /*value 列长度*/{width: 110px;}
+#pieDataDisp #keyInput, #pieDataDisp #valueInput /*两个数据输入框大小*/{
+    padding: 2px 0 2px 10px;
     margin: 0;
 }
 
-#tableBody tr:last-child td:nth-child(1), #tableBody tr:last-child td:nth-child(2) { padding: 0; }
 
-#table input {
-    width: auto;
-    height: auto;
+/*barChart表格设置*/
+
+
+/*lineChart表格设置*/
+
+
+/*radarChart表格设置*/
+#radarDataDisp thead button /*雷达图thead减号*/{
+    padding: 2px;
+}
+#radarDataDisp #addRadarIndi /*雷达图新增指标输入框*/{
+    width: 50%;
+    border-color: #aaa;
+}
+#addRadarIndiBox{
+    float: right;
     border-style: none;
-    padding: 2px 10px 2px 10px;
+    width: 120px;
+    padding-right: 0;
+    text-align: right;
+}
+#pHolder1{
+    float: left;
+    border-style: none;
+    width: 110px;
+    padding-left: 0;
+}
+#radarSeriesNamesChCell input /*雷达图Series输入框*/{
+    width: 100px;
+    height: 100%;
+    border-style: none;
+}
+#radarDataDisp .valueInputs/*雷达图value输入框*/{
+    width: 80%;
+    height: 100%;
+    border-style: none;
+}
+#radarDataDisp tbody tr:last-child td /*最后一行（输入行）*/{
+    padding: 0;
 }

@@ -5,65 +5,301 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Echarts Generator Demo</title>
   <link type="text/css" rel="stylesheet" href="index.css" />
-  <script src="https://cdn.bootcss.com/echarts/3.7.0/echarts.common.min.js" defer></script>
+  <script src="http://echarts.baidu.com/dist/echarts.min.js" defer></script>
   <script src="index.js" defer></script>
 </head>
 <body>
-  <div id="panel"><!--图表结构选择-->
-    <h3>图表选项</h3>
-    <input id="title" type="text" placeholder="图标标题" onchange="chTitle()"><!--图标标题-->
-      <select id="type" onchange="chType()"> <!--图标类型选择-->
-        <option value="pie">饼形图</option>
-        <option value="pie">折线图</option>
+  <!--for bar chart-->
+  <div id="panel" class="panel">
+    <h3>图表选项 bar</h3>
+    <div class="panelInput">
+      <input id="title" type="text" placeholder="图表标题" value="请在此输入您的标题" onchange="chTitle()">
+      <select id="type"> <!--图标类型选择-->
         <option value="bar">条形图</option>
-        <option value="rader">雷达图</option>
+        <option value="pie">饼形图</option>
+        <option value="line">折线图</option>
+        <option value="radar">雷达图</option>
       </select>
+      <button onclick="chType()">修改图表类型</button>
       <br>
-      <input id="xAxis" type="text" placeholder="横坐标轴标题" onchange="chXAxis()"><!--横坐标标题-->
-      <input id="yAxis" type="text" placeholder="纵坐标轴标题" onchange="chYAxis()"><!--纵坐标标题-->
-  </div><!--图表结构选择-->
+      <input id="xAxis" type="text" placeholder="横坐标轴标题" value="x Axis" onchange="chXAxis()"><!--横坐标标题-->
+      <input id="yAxis" type="text" placeholder="纵坐标轴标题" value="y Axis" onchange="chYAxis()"><!--纵坐标标题-->
+    </div>
+  </div>
+
+  <!--for pie chart-->
+  <div id="piePanel" class="panel">
+    <h3>图表选项 pie</h3>
+    <div class="panelInput">
+      <input id="pieTitle" type="text" placeholder="图表标题" value="请在此输入您的标题" onchange="chPieTitle()">
+      <select id="pieType"> <!--图标类型选择-->
+        <option value="pie">饼形图</option>
+        <option value="bar">条形图</option>
+        <option value="line">折线图</option>
+        <option value="radar">雷达图</option>
+      </select>
+      <button onclick="chType()">修改图表类型</button>
+      <br>
+    </div>
+  </div>
+
+  <!--for line chart-->
+  <div id="linePanel" class="panel">
+    <h3>图表选项 line</h3>
+    <div class="panelInput">
+      <input id="lineTitle" type="text" placeholder="图表标题" value="请在此输入您的标题" onchange="chTitle()">
+      <select id="lienType"> <!--图标类型选择-->
+        <option value="line">折线图</option>
+        <option value="bar">条形图</option>
+        <option value="pie">饼形图</option>
+        <option value="radar">雷达图</option>
+      </select>
+      <button onclick="chType()">修改图表类型</button>
+      <br>
+      <input id="lineXAxis" type="text" placeholder="横坐标轴标题" value="x Axis" onchange="chXAxis()"><!--横坐标标题-->
+      <input id="lineYAxis" type="text" placeholder="纵坐标轴标题" value="y Axis" onchange="chYAxis()"><!--纵坐标标题-->
+    </div>
+  </div>
+
+  <!--for radar chart-->
+  <div id="radarPanel" class="panel">
+    <h3>图表选项 radar</h3>
+    <div class="panelInput">
+      <input id="radarTitle" type="text" placeholder="图表标题" value="请在此输入您的标题" onchange="chTitle()">
+      <select id="radarType"> <!--图标类型选择-->
+        <option value="radar">雷达图</option>
+        <option value="bar">条形图</option>
+        <option value="pie">饼形图</option>
+        <option value="line">折线图</option>
+      </select>
+      <button onclick="chType()">修改图表类型</button>
+      <br>
+    </div>
+  </div>
 
 
-  <div id="dataDisp"><!--数据表格--><!--此处不会根据上面的输入值来变动表格行数-->
-    <h3>数据</h3>
-    <table id="table">
-      <thead id="tableHead">
+
+
+
+
+
+
+  <!-- for bar chart -->
+  <div class="dataDisp" id="barDataDisp"><!--数据表格--><!--此处不会根据上面的输入值来变动表格行数-->
+    <h3>数据 bar</h3>
+    <table class="table" id="barTable">
+      <thead id="barTableHead">
         <tr>
-          <th id="keyHead">key</th>
-          <th id="valueHead">value</th>
-          <th>删除按钮</th>
+          <th id="barSeriesName">SeriesName</th>
+          <th id="barKeyHead">key</th>
+          <th id="barValueHead">value</th>
+          <th> ＋/－ </th>
         </tr>
       </thead>
-      <tbody id="tableBody">
+      <tbody id="barTableBody">
         <tr>
+          <td class="seriesNames">系列1</td>
           <td class="keys">示例数据1</td>
           <td class="values">2017</td>
-          <td><button onclick="deleteData(this);chData()">－</button></td>
+          <td><button onclick="deleteLine(this);updateBarOps()">－</button></td>
         </tr>
         <tr>
+          <td class="seriesNames">系列1</td>
           <td class="keys">示例数据2</td>
           <td class="values">2233</td>
-          <td><button onclick="deleteData(this);chData()">－</button></td>
+          <td><button onclick="deleteLine(this);updateBarOps()">－</button></td>
         </tr>
         <tr>
-          <td>
-            <input id="keyInput" type="text" placeholder="在此输入key">
+          <td id="barSeriesNamesChCell" class="seriesNamesChCell">
+            <input list="barSeries" placeholder="选择/输入">
+            <datalist id="barSeries">
+              <option value="系列1" class="barSeriesOps">
+            </datalist>
           </td>
           <td>
-            <input id="valueInput" type="number" placeholder="在此输入value">
+            <input id="barKeyInput" class="keyInputs" type="text" placeholder="在此输入key">
           </td>
           <td>
-              <button onclick="submitData(this);chData()">＋</button>
+            <input id="barValueInput" class="valueInputs" type="number" placeholder="在此输入value">
+          </td>
+          <td class="submitCell">
+              <button onclick="submitBarData()/*用于修改数据表*//*;chBarData()用于修改charts*/">＋</button>
           </td>
         </tr>
+      </tbody>
+    </table>
+  </div>
 
+  <!-- for pie chart -->
+  <div class="dataDisp" id="pieDataDisp"><!--数据表格--><!--此处不会根据上面的输入值来变动表格行数-->
+    <h3>数据 pie</h3>
+    <table class="table">
+      <thead id="tableHead">
+      <tr>
+        <th id="keyHead">key</th>
+        <th id="valueHead">value</th>
+        <th> ＋/－ </th>
+      </tr>
+      </thead>
+      <tbody id="tableBody">
+      <tr>
+        <td class="keys">示例数据1</td>
+        <td class="values">2017</td>
+        <td><button onclick="deleteLine(this);chData()">－</button></td>
+      </tr>
+      <tr>
+        <td class="keys">示例数据2</td>
+        <td class="values">2233</td>
+        <td><button onclick="deleteLine(this);chData()">－</button></td>
+      </tr>
+      <tr>
+        <td>
+          <input id="keyInput" type="text" placeholder="在此输入key">
+        </td>
+        <td>
+          <input id="valueInput" type="number" placeholder="在此输入value">
+        </td>
+        <td class="submitCell">
+          <button onclick="submitData(this);chData()">＋</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 
+  <!--for line chart-->
+  <div class="dataDisp" id="lineDataDisp"><!--数据表格--><!--此处不会根据上面的输入值来变动表格行数-->
+    <h3>数据 line</h3>
+    <table class="table" id="lineTable">
+      <thead id="lineTableHead">
+      <tr>
+        <th id="lineSeriesName">SeriesName</th>
+        <th id="lineKeyHead">key</th>
+        <th id="lineValueHead">value</th>
+        <th> ＋/－ </th>
+      </tr>
+      </thead>
+      <tbody id="lineTableBody">
+      <tr>
+        <td class="seriesNames">系列1</td>
+        <td class="keys">示例数据1</td>
+        <td class="values">2017</td>
+        <td><button onclick="deleteLine(this);updateLineOps()/*;chData()*/">－</button></td>
+      </tr>
+      <tr>
+        <td class="seriesNames">系列1</td>
+        <td class="keys">示例数据2</td>
+        <td class="values">2233</td>
+        <td><button onclick="deleteLine(this);updateLineOps()/*;chData()*/">－</button></td>
+      </tr>
+      <tr>
+        <td id="lineSeriesNamesChCell" class="seriesNamesChCell">
+          <input list="lineSeries">
+          <datalist id="lineSeries">
+            <option value="系列1" class="lineSeriesOps">
+          </datalist>
+        </td>
+        <td>
+          <input id="lineKeyInput" class="keyInputs" type="text" placeholder="在此输入key">
+        </td>
+        <td>
+          <input id="lineValueInput" class="valueInputs" type="number" placeholder="在此输入value">
+        </td>
+        <td class="submitCell">
+          <button onclick="submitLineData(this)/*用于修改数据表*//*;chLineData()用于修改charts*/">＋</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!--for radar chart-->
+  <div class="dataDisp" id="radarDataDisp"><!--数据表格--><!--此处不会根据上面的输入值来变动表格行数-->
+    <h3>数据 radar</h3>
+    <table class="table" id="radarTable">
+      <thead id="radarTableHead">
+      <tr>
+        <th id="radarSeriesName" rowspan="2">SeriesName</th>
+        <th id="radarValueHead" colspan="5">
+          <div id="pHolder1">&nbsp;</div>
+          values
+          <div id="addRadarIndiBox">
+            <input id="addRadarIndi" placeholder="新增指标">
+            <button>＋</button>
+          </div>
+        </th>
+        <th rowspan="2"> ＋/－ </th>
+      </tr>
+      <tr>
+        <th>
+          指标1<button>－</button>
+        </th>
+        <th>
+          指标1<button>－</button>
+        </th>
+        <th>
+          指标1<button>－</button>
+        </th>
+        <th>
+          指标1<button>－</button>
+        </th>
+        <th>
+          指标1<button>－</button>
+        </th>
+      </tr>
+
+      </thead>
+      <tbody id="radarTableBody">
+      <tr class="S/VGroups">
+        <td class="seriesNames">系列1</td>
+        <td class="values">3</td>
+        <td class="values">4</td>
+        <td class="values">3</td>
+        <td class="values">5</td>
+        <td class="values">2</td>
+        <td><button onclick="deleteData(this);chData()">－</button></td>
+      </tr>
+      <tr class="S/VGroups">
+        <td class="seriesNames">系列1</td>
+        <td class="values">3</td>
+        <td class="values">4</td>
+        <td class="values">3</td>
+        <td class="values">5</td>
+        <td class="values">2</td>
+        <td><button onclick="deleteData(this);chData()">－</button></td>
+      </tr>
+      <tr>
+        <td id="radarSeriesNamesChCell" class="seriesNamesChCell">
+          <input list="radarSeries" placeholder="输入/选择">
+          <datalist id="radarSeries">
+            <option value="系列1" class="radarSeriesOps">
+          </datalist>
+        </td>
+        <td><input class="valueInputs" type="number" placeholder="指标的值"></td>
+        <td><input class="valueInputs" type="number" placeholder="指标的值"></td>
+        <td><input class="valueInputs" type="number" placeholder="指标的值"></td>
+        <td><input class="valueInputs" type="number" placeholder="指标的值"></td>
+        <td><input class="valueInputs" type="number" placeholder="指标的值"></td>
+        <td class="submitCell">
+          <button onclick="submitRadarData(this)/*用于修改数据表*/;chRadarData()/*用于修改charts*/">＋</button>
+        </td>
+      </tr>
       </tbody>
     </table>
   </div>
 
 
-  <div id="echarts"></div>
+
+
+
+
+
+
+
+  <div id="echarts" class="echarts"></div><!-- bar chart -->
+  <div id="pieEcharts" class = "echarts"></div>
+  <div id="lineEcharts" class = "echarts"></div>
+  <div id="radarEcharts" class = "echarts"></div>
 
 </body>
 </html>
