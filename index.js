@@ -3,36 +3,104 @@ var xAxis;
 var yAxis;
 var type;
 
-
-
-function submitData(thisButtion){
-    var tableAdderKey = document.getElementById("keyInput");
-    var tableAdderValue = document.getElementById("valueInput");
-    var key = tableAdderKey.value;
-    var value = tableAdderValue.value;
-    deleteData(thisButtion)    /*删除数据输入行*/
-    document.getElementById("tableBody").innerHTML +=
-        "<tr> " +
-            "<td class=\"keys\">" + key + "</td>" +
-            "<td class='values'>" + value + "</td>" +
-            "<td> " +
-                "<button onclick='deleteData(this);chData()'>" + "－" + "</button>" +
-            "</td>" +
-        "</tr>" +
-        "<tr> " +
-            "<td>" + "<input id='keyInput' type='text' placeholder='在此输入key'>" + "</td>" +
-            "<td>" + "<input id='valueInput' type='number' placeholder='在此输入value'>" + "</td>" +
-            "<td id='submitCell'> " +
-                "<button onclick='submitData(this);chData()'>＋</button>" +
-            "</td>" +
-        "</tr>"
-}
-
-function deleteData(thisButton) {
-    deleteThis = thisButton.parentNode.parentNode;
+function deleteLine(thisButton) {
+    var deleteThis = thisButton.parentNode.parentNode;
     deleteThis.parentNode.removeChild(deleteThis);
 }
+function reRepeat(seriesNames) {
+    var arr = [];  
+    for(var i = 0; i < seriesNames.length; i++){
+        if(arr.indexOf(seriesNames[i]) === -1){
+            arr.push(seriesNames[i]);
+        }
+    }
+    return arr
+}
 
+
+/*about barChart table update*/
+var barRows = document.querySelectorAll('#barDataDisp tbody tr');
+var newBarRow = barRows[0].innerHTML;/*第一行内部代码*/
+var barInputRow = barRows[barRows.length - 1].innerHTML;
+function barSeriesNames() /*获得含有所有SeriesName的数组*/{
+    var Names = [];
+    var seriesObj = document.querySelectorAll('#barDataDisp .seriesNames'); /*第一列的单元格们*/
+    for (var i = 0; i < seriesObj.length; i++){
+        Names.push(seriesObj[i].innerHTML);
+    }
+    return Names;
+}
+function barOptionCode (SNs) {
+    var code = '';
+    for (var i = 0; i < SNs.length; i++){
+        code += '<option value="'+ SNs[i] +'" class="barSeriesOps">';
+    }
+    return code;
+}
+function updateBarOps() {
+    var onlyBarSNs = reRepeat(barSeriesNames());
+    document.querySelectorAll('#barSeries')[0].innerHTML = barOptionCode(onlyBarSNs);
+}
+
+function submitBarData() {
+    var series = document.querySelectorAll('#barSeriesNamesChCell input')[0].value;
+    var key = document.querySelectorAll("#barKeyInput")[0].value;
+    var value = document.querySelectorAll("#barValueInput")[0].value;
+    deleteLine(document.querySelectorAll("#barDataDisp .submitCell button")[0]);
+    document.querySelectorAll('#barDataDisp tbody')[0].innerHTML +=
+        '<tr>' + newBarRow + '</tr>' +
+        '<tr>' + barInputRow + '</tr>';
+    var nowRows = document.querySelectorAll('#barDataDisp tbody tr');
+    var lastDataRow = nowRows[nowRows.length - 2];
+    lastDataRow.querySelectorAll('td')[0].innerHTML = series;
+    lastDataRow.querySelectorAll('td')[1].innerHTML = key;
+    lastDataRow.querySelectorAll('td')[2].innerHTML = value;/*finished inserting a new bar with data*/
+    updateBarOps();
+}
+
+
+
+
+
+/*about lineChart table update*/
+var lineRows = document.querySelectorAll('#lineDataDisp tbody tr');
+var newLineRow = lineRows[0].innerHTML;/*第一行内部代码*/
+var lineInputRow = lineRows[lineRows.length - 1].innerHTML;
+function lineSeriesNames() /*获得含有所有SeriesName的数组*/{
+    var Names = [];
+    var seriesObj = document.querySelectorAll('#lineDataDisp .seriesNames'); /*第一列的单元格们*/
+    for (var i = 0; i < seriesObj.length; i++){
+        Names.push(seriesObj[i].innerHTML);
+    }
+    return Names;
+}
+function lineOptionCode (SNs) {
+    var code = '';
+    for (var i = 0; i < SNs.length; i++){
+        code += '<option value="'+ SNs[i] +'" class="lineSeriesOps">';
+    }
+    return code;
+}
+function updateLineOps() {
+    var onlyLineSNs = reRepeat(lineSeriesNames());
+    document.querySelectorAll('#lineSeries')[0].innerHTML = lineOptionCode(onlyLineSNs);
+}
+
+function submitLineData() {
+    var series = document.querySelectorAll('#lineSeriesNamesChCell input')[0].value;
+    var key = document.querySelectorAll("#lineKeyInput")[0].value;
+    var value = document.querySelectorAll("#lineValueInput")[0].value;
+    deleteLine(document.querySelectorAll("#lineDataDisp .submitCell button")[0]);
+    document.querySelectorAll('#lineDataDisp tbody')[0].innerHTML +=
+        '<tr>' + newLineRow + '</tr>' +
+        '<tr>' + lineInputRow + '</tr>';
+    var nowRows = document.querySelectorAll('#lineDataDisp tbody tr');
+    var lastDataRow = nowRows[nowRows.length - 2];
+    lastDataRow.querySelectorAll('td')[0].innerHTML = series;
+    lastDataRow.querySelectorAll('td')[1].innerHTML = key;
+    lastDataRow.querySelectorAll('td')[2].innerHTML = value;/*finished inserting a new line with data*/
+    updateLineOps();
+}
 
 
 

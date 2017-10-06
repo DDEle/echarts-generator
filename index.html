@@ -101,17 +101,17 @@
           <td class="seriesNames">系列1</td>
           <td class="keys">示例数据1</td>
           <td class="values">2017</td>
-          <td><button onclick="deleteData(this);chData()">－</button></td>
+          <td><button onclick="deleteLine(this);updateBarOps()">－</button></td>
         </tr>
         <tr>
           <td class="seriesNames">系列1</td>
           <td class="keys">示例数据2</td>
           <td class="values">2233</td>
-          <td><button onclick="deleteData(this);chData()">－</button></td>
+          <td><button onclick="deleteLine(this);updateBarOps()">－</button></td>
         </tr>
         <tr>
           <td id="barSeriesNamesChCell" class="seriesNamesChCell">
-            <input list="barSeries">
+            <input list="barSeries" placeholder="选择/输入">
             <datalist id="barSeries">
               <option value="系列1" class="barSeriesOps">
             </datalist>
@@ -123,7 +123,7 @@
             <input id="barValueInput" class="valueInputs" type="number" placeholder="在此输入value">
           </td>
           <td class="submitCell">
-              <button onclick="submitPieData(this)/*用于修改数据表*/;chPieData()/*用于修改charts*/">＋</button>
+              <button onclick="submitBarData()/*用于修改数据表*//*;chBarData()用于修改charts*/">＋</button>
           </td>
         </tr>
       </tbody>
@@ -145,12 +145,12 @@
       <tr>
         <td class="keys">示例数据1</td>
         <td class="values">2017</td>
-        <td><button onclick="deleteData(this);chData()">－</button></td>
+        <td><button onclick="deleteLine(this);chData()">－</button></td>
       </tr>
       <tr>
         <td class="keys">示例数据2</td>
         <td class="values">2233</td>
-        <td><button onclick="deleteData(this);chData()">－</button></td>
+        <td><button onclick="deleteLine(this);chData()">－</button></td>
       </tr>
       <tr>
         <td>
@@ -184,13 +184,13 @@
         <td class="seriesNames">系列1</td>
         <td class="keys">示例数据1</td>
         <td class="values">2017</td>
-        <td><button onclick="deleteData(this);chData()">－</button></td>
+        <td><button onclick="deleteLine(this);updateLineOps()/*;chData()*/">－</button></td>
       </tr>
       <tr>
         <td class="seriesNames">系列1</td>
         <td class="keys">示例数据2</td>
         <td class="values">2233</td>
-        <td><button onclick="deleteData(this);chData()">－</button></td>
+        <td><button onclick="deleteLine(this);updateLineOps()/*;chData()*/">－</button></td>
       </tr>
       <tr>
         <td id="lineSeriesNamesChCell" class="seriesNamesChCell">
@@ -206,7 +206,7 @@
           <input id="lineValueInput" class="valueInputs" type="number" placeholder="在此输入value">
         </td>
         <td class="submitCell">
-          <button onclick="submitLineData(this)/*用于修改数据表*/;chLineData()/*用于修改charts*/">＋</button>
+          <button onclick="submitLineData(this)/*用于修改数据表*//*;chLineData()用于修改charts*/">＋</button>
         </td>
       </tr>
       </tbody>
