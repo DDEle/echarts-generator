@@ -6,24 +6,25 @@
   <title>Echarts Generator Demo</title>
   <link type="text/css" rel="stylesheet" href="index.css" />
   <script src="http://echarts.baidu.com/dist/echarts.min.js" defer></script>
+<!--  <script src="https://cdn.bootcss.com/echarts/3.7.2/echarts.min.js" defer></script>-->
   <script src="index.js" defer></script>
 </head>
 <body>
   <!--for bar chart-->
-  <div id="panel" class="panel">
+  <div id="barPanel" class="panel">
     <h3>图表选项 bar</h3>
     <div class="panelInput">
-      <input id="title" type="text" placeholder="图表标题" value="请在此输入您的标题" onchange="chTitle()">
-      <select id="type"> <!--图标类型选择-->
+      <input id="barTitle" type="text" placeholder="图表标题" value="请在此输入您的标题" onchange="chTitle('bar')">
+      <select id="barType"> <!--图标类型选择-->
         <option value="bar">条形图</option>
         <option value="pie">饼形图</option>
         <option value="line">折线图</option>
         <option value="radar">雷达图</option>
       </select>
-      <button onclick="chType()">修改图表类型</button>
+      <button onclick="chType('bar')">修改图表类型</button>
       <br>
-      <input id="xAxis" type="text" placeholder="横坐标轴标题" value="x Axis" onchange="chXAxis()"><!--横坐标标题-->
-      <input id="yAxis" type="text" placeholder="纵坐标轴标题" value="y Axis" onchange="chYAxis()"><!--纵坐标标题-->
+      <input id="barXAxis" type="text" placeholder="横坐标轴标题" value="x Axis" onchange="chAxis('bar', 'x')"><!--横坐标标题-->
+      <input id="barYAxis" type="text" placeholder="纵坐标轴标题" value="y Axis" onchange="chAxis('bar', 'y')"><!--纵坐标标题-->
     </div>
   </div>
 
@@ -31,14 +32,14 @@
   <div id="piePanel" class="panel">
     <h3>图表选项 pie</h3>
     <div class="panelInput">
-      <input id="pieTitle" type="text" placeholder="图表标题" value="请在此输入您的标题" onchange="chPieTitle()">
+      <input id="pieTitle" type="text" placeholder="图表标题" value="请在此输入您的标题" onchange="chTitle('pie')">
       <select id="pieType"> <!--图标类型选择-->
         <option value="pie">饼形图</option>
         <option value="bar">条形图</option>
         <option value="line">折线图</option>
         <option value="radar">雷达图</option>
       </select>
-      <button onclick="chType()">修改图表类型</button>
+      <button onclick="chType('pie')">修改图表类型</button>
       <br>
     </div>
   </div>
@@ -47,17 +48,17 @@
   <div id="linePanel" class="panel">
     <h3>图表选项 line</h3>
     <div class="panelInput">
-      <input id="lineTitle" type="text" placeholder="图表标题" value="请在此输入您的标题" onchange="chTitle()">
-      <select id="lienType"> <!--图标类型选择-->
+      <input id="lineTitle" type="text" placeholder="图表标题" value="请在此输入您的标题" onchange="chTitle('line')">
+      <select id="lineType"> <!--图标类型选择-->
         <option value="line">折线图</option>
         <option value="bar">条形图</option>
         <option value="pie">饼形图</option>
         <option value="radar">雷达图</option>
       </select>
-      <button onclick="chType()">修改图表类型</button>
+      <button onclick="chType('line')">修改图表类型</button>
       <br>
-      <input id="lineXAxis" type="text" placeholder="横坐标轴标题" value="x Axis" onchange="chXAxis()"><!--横坐标标题-->
-      <input id="lineYAxis" type="text" placeholder="纵坐标轴标题" value="y Axis" onchange="chYAxis()"><!--纵坐标标题-->
+      <input id="lineXAxis" type="text" placeholder="横坐标轴标题" value="x Axis" onchange="chAxis('line', 'x')"><!--横坐标标题-->
+      <input id="lineYAxis" type="text" placeholder="纵坐标轴标题" value="y Axis" onchange="chAxis('line', 'y')"><!--纵坐标标题-->
     </div>
   </div>
 
@@ -65,14 +66,14 @@
   <div id="radarPanel" class="panel">
     <h3>图表选项 radar</h3>
     <div class="panelInput">
-      <input id="radarTitle" type="text" placeholder="图表标题" value="请在此输入您的标题" onchange="chTitle()">
+      <input id="radarTitle" type="text" placeholder="图表标题" value="请在此输入您的标题" onchange="chTitle('radar')">
       <select id="radarType"> <!--图标类型选择-->
         <option value="radar">雷达图</option>
         <option value="bar">条形图</option>
         <option value="pie">饼形图</option>
         <option value="line">折线图</option>
       </select>
-      <button onclick="chType()">修改图表类型</button>
+      <button onclick="chType('radar')">修改图表类型</button>
       <br>
     </div>
   </div>
@@ -298,7 +299,7 @@
 
 
 
-  <div id="echarts" class="echarts"></div><!-- bar chart -->
+  <div id="barEcharts" class="echarts"></div><!-- bar chart -->
   <div id="pieEcharts" class = "echarts"></div>
   <div id="lineEcharts" class = "echarts"></div>
   <div id="radarEcharts" class = "echarts"></div>

@@ -1,7 +1,11 @@
-var title;
-var xAxis;
-var yAxis;
 var type;
+function titleCase(str) /*change the first char to upper case*/ {
+    var array = str.toLowerCase().split(" ");
+    for (var i = 0; i < array.length; i++){
+        array[i] = array[i][0].toUpperCase() + array[i].substring(1, array[i].length);
+    }
+    return array.join(" ");
+}
 
 function delObj(Obj) {Obj.parentNode.removeChild(Obj);}
 function deleteLine(thisButton) {delObj(thisButton.parentNode.parentNode);}
@@ -20,7 +24,7 @@ function reRepeat(seriesNames) /*remove repeated elements from a given list*/{
 var barRows = document.querySelectorAll('#barDataDisp tbody tr');
 var newBarRow = barRows[0].innerHTML;/*第一行内部代码*/
 var barInputRow = barRows[barRows.length - 1].innerHTML;
-function barSeriesNames() /*获得  含有所有SeriesName的数组*/{
+function barSeriesNames() /*获得含有所有SeriesName的数组*/{
     var Names = [];
     var seriesObj = document.querySelectorAll('#barDataDisp .seriesNames'); /*第一列的单元格们*/
     for (var i = 0; i < seriesObj.length; i++){
@@ -214,41 +218,91 @@ function submitRadarData() {
 
 
 
+/*about the panel*/
+function chTitle (chartType) /*universal change titles*/{
+    var title = document.querySelectorAll('#'+ chartType +'Title')[0].value;
+    eval(chartType +'Option').title.text = title;
+    eval('my' + titleCase(chartType) + 'Chart').setOption(eval(chartType +'Option'));
+}
+function chAxis(chartType, XorY) /*universal change axis titles*/{
+    var axis = document.querySelectorAll('#'+ chartType + titleCase(XorY) + 'Axis')[0].value;
+    eval(chartType +'Option.'+ XorY +'Axis').name = axis;
+    eval('my' + titleCase(chartType) + 'Chart').setOption(eval(chartType +'Option'));
+}
+function hideAll() {
+    var elemsToHide = document.querySelectorAll('.panel, .dataDisp, .echarts');
+    for (var i = 0; i < elemsToHide.length; i++){
+        elemsToHide[i].setAttribute('hidden', 'hidden');
+    }
+}
+function chType(currentChart) {
+    type = document.querySelectorAll('#' + currentChart + 'Type')[0].value;
+    hideAll();
+    if (type === 'bar'){
+        document.querySelectorAll('#barPanel')[0].removeAttribute('hidden');
+        document.querySelectorAll('#barDataDisp')[0].removeAttribute('hidden');
+        document.querySelectorAll('#barEcharts')[0].removeAttribute('hidden');
+    }
+    else if (type === 'pie') {
+        document.querySelectorAll('#piePanel')[0].removeAttribute('hidden');
+        document.querySelectorAll('#pieDataDisp')[0].removeAttribute('hidden');
+        document.querySelectorAll('#pieEcharts')[0].removeAttribute('hidden');
+    }
+    else if (type === 'line') {
+        document.querySelectorAll('#linePanel')[0].removeAttribute('hidden');
+        document.querySelectorAll('#lineDataDisp')[0].removeAttribute('hidden');
+        document.querySelectorAll('#lineEcharts')[0].removeAttribute('hidden');
+    }
+    else if (type === 'radar'){
+        document.querySelectorAll('#radarPanel')[0].removeAttribute('hidden');
+        document.querySelectorAll('#radarDataDisp')[0].removeAttribute('hidden');
+        document.querySelectorAll('#radarEcharts')[0].removeAttribute('hidden');
+    }
+    eval('my' + titleCase(type) + 'Chart').setOption(emptyOption);
+    eval('my' + titleCase(type) + 'Chart').setOption(eval(type +'Option'));
+}
 
 
+/*to get data*/
+function getKVof(SeriesName, chartType) /*return a array of rows of same SeriesName*/{
+    
+}
+function getKey(theRow) /*given a row and return the value of key*/{
 
+}
+function getvalue(theRow) /*given a row and return the value of value*/{
 
+}
+function getSeriesNames /*get SeriesNames without repetition*/(chartType) {
+
+}
+function getTitle(chartType) {
+
+}
+function getBarData() {
+    var barSeriesName = getUniqueSeries('bar');
+    var barKeyName = getUniqueKey('bar');
+    for (i = 0; i < barseriesName.length; )
+
+    var barData={
+        title:'',
+        seriesNames:[],
+        values:[]
+    }
+    barData.title = getTitle('bar');
+    barData.seriesNames = getSeriesNames('bar');
+    for (??? barData.seriesNames ???){
+        getKVof(seriesName, 'bar')
+    }
+
+}
 
 
 
 
 /*下面是on"***"事件触发的一些修改Echarts的函数*/
-function chTitle() {
-    title = document.getElementById("title").value;
-    option.title.text = title;
-    myChart.setOption(option);
-}
-function chXAxis() {
-    xAxis = document.getElementById("xAxis").value;
-    option.xAxis.name = xAxis;
-    myChart.setOption(option);
-}
-function chYAxis() {
-    yAxis = document.getElementById("yAxis").value;
-    option.yAxis.name = xAxis;
-    myChart.setOption(option);
-}
-function chType() {
-    type = document.getElementById("type").value;
-    /*    option.series[0].type = type;
-        if (type === "pie"){
-            document.getElementById("dataDisp").innerHTML = defaultTable
-            resetAll()
-    }*/
-    myChart.setOption(option);
-}
 
-function chData() {
+/*function chData() {
     var keys = [];
     var keyCells = document.getElementsByClassName("keys");
     for (var i = 0; i < keyCells.length; i++){
@@ -263,12 +317,15 @@ function chData() {
     option.xAxis.data = keys;
     option.series[0].data = values;
     myChart.setOption(option);
-}
+}*/
+
+
+
 
 /*下面是Echarts部分*/
 /*bar chart*/
-var myChart = echarts.init(document.getElementById('echarts'));
-var option = {
+var myBarChart = echarts.init(document.getElementById('barEcharts'));
+var barOption = {
     title: {
         text: 'barECharts 示例'
     },
@@ -303,7 +360,7 @@ var option = {
         }
     }
 };
-myChart.setOption(option);
+myBarChart.setOption(barOption);
 
 
 /*pie chart*/
@@ -456,24 +513,29 @@ var radarOption = {
                 [1,6,7,3,2]
             ]
         }
-
-
-
-
-    ]
-
+    ],
+    toolbox: {
+        feature:{
+            saveAsImage: {
+                name: "CodingNow!-demoImage",
+                title: "下载"
+            }
+        }
+    }
 };
 myRadarChart.setOption(radarOption);
 
-
-
+var emptyOption = {};
+/*
 function resetAll(){
     chData();
     chTitle();
     chXAxis();
     chYAxis();
-}
+}*/
 /*
 /!*按照默认值修改图表*!/
 chType();
 resetAll();*/
+
+chType('bar');
