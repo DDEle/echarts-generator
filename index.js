@@ -223,6 +223,8 @@ function chTitle (chartType) /*universal change titles*/{
     var title = document.querySelectorAll('#'+ chartType +'Title')[0].value;
     eval(chartType +'Option').title.text = title;
     eval('my' + titleCase(chartType) + 'Chart').setOption(eval(chartType +'Option'));
+
+
 }
 function chAxis(chartType, XorY) /*universal change axis titles*/{
     var axis = document.querySelectorAll('#'+ chartType + titleCase(XorY) + 'Axis')[0].value;
@@ -394,7 +396,7 @@ function updateBarData() {
     }
     barOption.series = newSeries;
     echarts.dispose(document.getElementById('barEcharts'));
-    var myBarChart = echarts.init(document.getElementById('barEcharts'));
+    myBarChart = echarts.init(document.getElementById('barEcharts'));
     myBarChart.setOption(barOption);
 }
 
@@ -429,7 +431,7 @@ function updatePieData() {
         data: newSeriesData
     }];
     echarts.dispose(document.getElementById('pieEcharts'));
-    var myPieChart = echarts.init(document.getElementById('pieEcharts'));
+    myPieChart = echarts.init(document.getElementById('pieEcharts'));
     myPieChart.setOption(pieOption);
 }
 
@@ -466,7 +468,7 @@ function updateLineData() {
     }
     lineOption.series = newSeries;
     echarts.dispose(document.getElementById('lineEcharts'));
-    var myLineChart = echarts.init(document.getElementById('lineEcharts'));
+    myLineChart = echarts.init(document.getElementById('lineEcharts'));
     myLineChart.setOption(lineOption);
 }
 
@@ -527,7 +529,7 @@ function updateRadarData() {
     radarOption.radar.indicator = newIndicator;
     radarOption.series = newSeries;
     echarts.dispose(document.getElementById('radarEcharts'));
-    var myRadarChart = echarts.init(document.getElementById('radarEcharts'));
+    myRadarChart = echarts.init(document.getElementById('radarEcharts'));
     myRadarChart.setOption(radarOption);
 }
 
@@ -970,7 +972,6 @@ var myItemStyleColor = [
 ];
 myRadarChart.setOption(radarOption);
 
-var emptyOption = {};
 /*
 function resetAll(){
     chData();
@@ -984,3 +985,9 @@ chType();
 resetAll();*/
 
 chType('bar');
+chTitle('bar');
+chTitle('pie');
+chTitle('line');
+chTitle('radar');
+chAxis('bar', 'x');chAxis('bar', 'y');
+chAxis('line', 'x');chAxis('line', 'y');
