@@ -344,6 +344,22 @@ function getIndexForRadar(SNs, theRow) {
     var SN = getSeriesName(theRow);
     return SNs.indexOf(SN)
 }
+function getGreatest(Nums) {
+    var max = Nums[0];
+    for(var i=1; i < Nums.length; i++){
+        if(max<Nums[i]){max=Nums[i];}
+    }
+    return max;
+}
+function getGrrrrrrest(arrayOfNums){
+    var max = getGreatest(arrayOfNums[0]);
+    for (var i=1; i < arrayOfNums.length; i++){
+        if(max < getGreatest(arrayOfNums[i])){
+            max = getGreatest(arrayOfNums[i]);
+        }
+    }
+    return max;
+}
 
 
 /*about operating barEChart */
@@ -463,12 +479,9 @@ function getRadarData() {
     var radarRows = getAllRows('radar')/*checked*/;
     /*make a array of nul*/
     var radarData = new Array(radarSeriesNames.length);
-    console.log(radarSeriesNames);
     for (var i = 0; i < radarSeriesNames.length; i++){
-        radarData[i] = new Array(getIndicators().length);
-        console.log(radarData[i]);
+        radarData[i] = [];
     }
-    console.log(radarData);
     for (var j = 0; j < radarRows.length; j++){
         var radarRow = radarRows[j];
         var seriesIndex = getIndexForRadar(radarSeriesNames, radarRow);
@@ -482,8 +495,17 @@ function updateRadarData() {
     radarOption.legend.data = getRadarData()[0];
     var indicators = getRadarData()[1];
     var newIndicator = [];
+    var maxValue = getGreatest(getRadarData()[2][0][0]);/*init max value*/
+    for (var k = 0; k < getRadarData()[2].length; k++){
+        if (maxValue < getGrrrrrrest(getRadarData()[2][k])){
+            maxValue = getGrrrrrrest(getRadarData()[2][k])
+        }
+    }
     for (var i =0; i < indicators.length; i++){
-        newIndicator[i] = {name: indicators[i]}
+        newIndicator[i] = {
+            name: indicators[i],
+            max: maxValue
+        }
     }
     var newSeries = [];
     for (var j = 0; j < getRadarData()[0].length; j++){
@@ -866,7 +888,8 @@ radarOption = {
             }
         },
         splitArea: {show: false},
-        axisLine: {lineStyle: {color: 'rgba(238, 197, 102, 0.5)'}}
+        axisLine: {lineStyle: {color: 'rgba(238, 197, 102, 0.5)'}},
+        axisLable: {show: true}
     },
     series: [
         {
@@ -960,4 +983,4 @@ function resetAll(){
 chType();
 resetAll();*/
 
-chType('radar');
+chType('bar');
