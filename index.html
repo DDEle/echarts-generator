@@ -11,21 +11,27 @@
   <script src="index.js" defer></script>
 </head>
 <body>
+
+  <h1>Echarts Generator</h1>
+
   <!--for bar chart-->
   <div id="barPanel" class="panel" hidden="hidden">
     <h3>图表选项 bar</h3>
     <div class="panelInput">
-      <input id="barTitle" type="text" placeholder="图表标题" value="请在此输入您的标题" onchange="chTitle('bar')">
-      <select id="barType"> <!--图标类型选择-->
-        <option value="bar" selected="selected">条形图</option>
-        <option value="pie">饼形图</option>
-        <option value="line">折线图</option>
-        <option value="radar">雷达图</option>
-      </select>
-      <button onclick="chType('bar')">修改图表类型</button>
-      <br>
-      <input id="barXAxis" type="text" placeholder="横坐标轴标题" value="x Axis" onchange="chAxis('bar', 'x')"><!--横坐标标题-->
-      <input id="barYAxis" type="text" placeholder="纵坐标轴标题" value="y Axis" onchange="chAxis('bar', 'y')"><!--纵坐标标题-->
+      <span>
+        <select id="barType"> <!--图标类型选择-->
+          <option value="bar" selected="selected">条形图</option>
+          <option value="pie">饼形图</option>
+          <option value="line">折线图</option>
+          <option value="radar">雷达图</option>
+        </select>
+        <button onclick="chType('bar')">修改图表类型</button>
+      </span>
+      <input id="barTitle" type="text" placeholder="图表标题" value="" onchange="chTitle('bar')">
+      <span>
+        <input id="barXAxis" type="text" placeholder="X 轴标题" value="" onchange="chAxis('bar', 'x')"><!--横坐标标题-->
+        <input id="barYAxis" type="text" placeholder="Y 轴标题" value="" onchange="chAxis('bar', 'y')"><!--纵坐标标题-->
+      </span>
     </div>
   </div>
 
@@ -33,15 +39,16 @@
   <div id="piePanel" class="panel" hidden="hidden">
     <h3>图表选项 pie</h3>
     <div class="panelInput">
-      <input id="pieTitle" type="text" placeholder="图表标题" value="请在此输入您的标题" onchange="chTitle('pie')">
-      <select id="pieType"> <!--图标类型选择-->
-        <option value="bar">条形图</option>
-        <option value="pie" selected="selected">饼形图</option>
-        <option value="line">折线图</option>
-        <option value="radar">雷达图</option>
-      </select>
-      <button onclick="chType('pie')">修改图表类型</button>
-      <br>
+      <span>
+        <select id="pieType"> <!--图标类型选择-->
+          <option value="bar">条形图</option>
+          <option value="pie" selected="selected">饼形图</option>
+          <option value="line">折线图</option>
+          <option value="radar">雷达图</option>
+        </select>
+        <button onclick="chType('pie')">修改图表类型</button>
+      </span>
+      <input id="pieTitle" type="text" placeholder="图表标题" value="" onchange="chTitle('pie')">
     </div>
   </div>
 
@@ -49,17 +56,20 @@
   <div id="linePanel" class="panel" hidden="hidden">
     <h3>图表选项 line</h3>
     <div class="panelInput">
-      <input id="lineTitle" type="text" placeholder="图表标题" value="请在此输入您的标题" onchange="chTitle('line')">
-      <select id="lineType"> <!--图标类型选择-->
-        <option value="bar">条形图</option>
-        <option value="pie">饼形图</option>
-        <option value="line" selected="selected">折线图</option>
-        <option value="radar">雷达图</option>
-      </select>
-      <button onclick="chType('line')">修改图表类型</button>
-      <br>
-      <input id="lineXAxis" type="text" placeholder="横坐标轴标题" value="x Axis" onchange="chAxis('line', 'x')"><!--横坐标标题-->
-      <input id="lineYAxis" type="text" placeholder="纵坐标轴标题" value="y Axis" onchange="chAxis('line', 'y')"><!--纵坐标标题-->
+      <span>
+        <select id="lineType"> <!--图标类型选择-->
+          <option value="bar">条形图</option>
+          <option value="pie">饼形图</option>
+          <option value="line" selected="selected">折线图</option>
+          <option value="radar">雷达图</option>
+        </select>
+        <button onclick="chType('line')">修改图表类型</button>
+      </span>
+      <input id="lineTitle" type="text" placeholder="图表标题" value="" onchange="chTitle('line')">
+      <span>
+        <input id="lineXAxis" type="text" placeholder="X 轴标题" value="" onchange="chAxis('line', 'x')"><!--横坐标标题-->
+        <input id="lineYAxis" type="text" placeholder="Y 轴标题" value="" onchange="chAxis('line', 'y')"><!--纵坐标标题-->
+      </span>
     </div>
   </div>
 
@@ -67,15 +77,16 @@
   <div id="radarPanel" class="panel" hidden="hidden">
     <h3>图表选项 radar</h3>
     <div class="panelInput">
-      <input id="radarTitle" type="text" placeholder="图表标题" value="请在此输入您的标题" onchange="chTitle('radar')">
-      <select id="radarType"> <!--图标类型选择-->
-        <option value="bar">条形图</option>
-        <option value="pie">饼形图</option>
-        <option value="line">折线图</option>
-        <option value="radar" selected="selected">雷达图</option>
-      </select>
-      <button onclick="chType('radar')">修改图表类型</button>
-      <br>
+      <span>
+        <select id="radarType"> <!--图标类型选择-->
+          <option value="bar">条形图</option>
+          <option value="pie">饼形图</option>
+          <option value="line">折线图</option>
+          <option value="radar" selected="selected">雷达图</option>
+        </select>
+        <button onclick="chType('radar')">修改图表类型</button>
+      </span>
+      <input id="radarTitle" type="text" placeholder="图表标题" value="" onchange="chTitle('radar')">
     </div>
   </div>
 
@@ -89,6 +100,7 @@
   <!-- for bar chart -->
   <div class="dataDisp" id="barDataDisp" hidden="hidden"><!--数据表格--><!--此处不会根据上面的输入值来变动表格行数-->
     <h3>数据 bar</h3>
+    <div class="panelTable">
     <table class="table" id="barTable">
       <thead id="barTableHead">
         <tr>
@@ -131,10 +143,12 @@
       </tbody>
     </table>
   </div>
+  </div>
 
   <!-- for pie chart -->
   <div class="dataDisp" id="pieDataDisp" hidden="hidden"><!--数据表格--><!--此处不会根据上面的输入值来变动表格行数-->
     <h3>数据 pie</h3>
+    <div class="panelTable">
     <table class="table">
       <thead id="tableHead">
       <tr>
@@ -168,10 +182,12 @@
       </tbody>
     </table>
   </div>
+  </div>
 
   <!--for line chart-->
   <div class="dataDisp" id="lineDataDisp" hidden="hidden"><!--数据表格--><!--此处不会根据上面的输入值来变动表格行数-->
     <h3>数据 line</h3>
+    <div class="panelTable">
     <table class="table" id="lineTable">
       <thead id="lineTableHead">
       <tr>
@@ -214,21 +230,27 @@
       </tbody>
     </table>
   </div>
+  </div>
 
   <!--for radar chart-->
   <div class="dataDisp" id="radarDataDisp" hidden="hidden"><!--数据表格--><!--此处不会根据上面的输入值来变动表格行数-->
     <h3>数据 radar</h3>
+    <div class="panelTable">
     <table class="table" id="radarTable">
       <thead id="radarTableHead">
       <tr>
-        <th id="radarSeriesName" rowspan="2">SeriesName</th>
+        <th id="radarSeriesName" rowspan="2">
+          SeriesName
+        </th>
         <th id="radarValueHead" colspan="5">
-          <div id="pHolder1">&nbsp;</div>
-          values
-          <div id="addRadarIndiBox">
-            <input id="addRadarIndi" placeholder="新增指标">
-            <button onclick="addCol()">＋</button>
-          </div>
+          <span>
+            <span id="pHolder1">&nbsp;</span>
+            values
+            <span id="addRadarIndiBox">
+              <input id="addRadarIndi" placeholder="新增指标">
+              <button onclick="addCol()">＋</button>
+            </span>
+          </span>
         </th>
         <th rowspan="2"> ＋/－ </th>
       </tr>
@@ -281,19 +303,19 @@
       </tfoot>
     </table>
   </div>
+  </div>
 
 
 
 
 
-
-
-
-
+<h3>图表</h3>
+<div class="panelEcharts">
   <div id="barEcharts" class="echarts" hidden="hidden"></div>
   <div id="pieEcharts" class="echarts" hidden="hidden"></div>
   <div id="lineEcharts" class="echarts" hidden="hidden"></div>
   <div id="radarEcharts" class="echarts" hidden="hidden"></div>
+</div>
 
 </body>
 </html>
