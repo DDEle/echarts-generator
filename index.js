@@ -1,3 +1,11 @@
+alert('CodingNow! 是 SESAxCPU 唯一理工科组织+唯一计算机社团联合举办、面向小白的编程教学活动，你即将看到的是' +
+    '本活动的成品展示——只要认真跟着学，你也能能做出这样炫酷的网页！\n' +
+    '\n' +
+    '使用说明:\n' +
+    '    第一部分是图表的一些选项，除了图表类型以外的部分都是修改成想要的内容便可以直接体现在下面的图表上。\n' +
+    '    第二部分是图表的本体，它由百度开发的Echars生成，CodingNow! 课堂将会以这个为切入点详细讲解前端编程技巧。\n' +
+    '    第三部分是图表的数据，由表格形式呈现，你可以点击上面的按钮自由添加/删除数据。\n' +
+    '    点击确定即可查看 CodingNow! 报名链接以及本演示图表。');
 var type;
 function titleCase(str) /*change the first char to upper case*/ {
     var array = str.toLowerCase().split(" ");
@@ -124,6 +132,7 @@ function submitLineData() {
 /*about radarChart table update*/
 /*del a indicator*/
 function delCol(thisButton, colNum) {
+    alert('由于一些未知错误，删增雷达图坐标功能暂时不可用，会产生未知的显示错误，敬请谅解！');
     var rows = document.querySelectorAll('#radarDataDisp tr');
     /*del the data cells first*/
     for (var i = 2; i < rows.length; i++){
@@ -146,6 +155,7 @@ function resetRadarColNum() {
 }
 /*add a indicator*/
 function addCol () {
+    alert('由于一些未知错误，删增雷达图坐标功能暂时不可用，会产生未知的显示错误，敬请谅解！');
     /*get the new indicator name*/
     var newIndi = document.querySelectorAll('#addRadarIndi')[0].value;
     /*increase the colspan*/
@@ -548,7 +558,8 @@ var barOption = {
     },
     tooltip: {},
     legend: {
-        data:['销量', '利润']
+        data:['销量', '利润'],
+        bottom: 5
     },
     xAxis: {
         data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
@@ -658,7 +669,8 @@ var lineOption = {
     },
     tooltip: {},
     legend: {
-        data:['销量', '利润']
+        data:['销量', '利润'],
+        bottom: 5
     },
     xAxis: {
         data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
@@ -891,7 +903,8 @@ radarOption = {
     title: {
         text: '雷达图',
         textStyle: {
-            color: '#eee'
+            color: '#eee',
+            fontSize: 14
         }
     },
     tooltip: {},
@@ -929,7 +942,11 @@ radarOption = {
         },
         splitArea: {show: false},
         axisLine: {lineStyle: {color: 'rgba(238, 197, 102, 0.5)'}},
-        axisLable: {show: true}
+        axisLabel: {
+            show: true,
+            fontSize: 8
+
+        }
     },
     series: [
         {
@@ -1022,7 +1039,7 @@ function resetAll(){
 chType();
 resetAll();*/
 
-chType('bar');
+chType('radar');
 chTitle('bar');
 chTitle('pie');
 chTitle('line');
