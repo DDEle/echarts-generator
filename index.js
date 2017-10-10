@@ -984,7 +984,7 @@ function resetAll(){
 chType();
 resetAll();*/
 
-chType('bar');
+chType('radar');
 chTitle('bar');
 chTitle('pie');
 chTitle('line');
