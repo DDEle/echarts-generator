@@ -1039,7 +1039,7 @@ function resetAll(){
 chType();
 resetAll();*/
 
-chType('radar');
+chType('bar');
 chTitle('bar');
 chTitle('pie');
 chTitle('line');
