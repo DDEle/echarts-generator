@@ -5,11 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Echarts Generator Demo</title>
   <link type="text/css" rel="stylesheet" href="index.css" />
+  <script src="https://cdn.bootcss.com/echarts/3.7.2/echarts.min.js"></script>
+  <script src="https://cdn.bootcss.com/babel-polyfill/7.0.0-beta.2/polyfill.min.js"></script>
 </head>
 <body>
 
+  <div>
   <h1>Echarts Generator</h1>
+  </div>
 
+
+  <div>
   <!--for bar chart-->
   <div id="barPanel" class="panel" hidden="hidden">
     <h3>图表选项 bar</h3>
@@ -85,14 +91,14 @@
       <input id="radarTitle" type="text" placeholder="图表标题" value="" onchange="chTitle('radar')">
     </div>
   </div>
+</div>
 
 
 
 
 
 
-
-
+<div>
   <!-- for bar chart -->
   <div class="dataDisp" id="barDataDisp" hidden="hidden"><!--数据表格--><!--此处不会根据上面的输入值来变动表格行数-->
     <h3>数据 bar</h3>
@@ -300,11 +306,11 @@
     </table>
   </div>
   </div>
+</div>
 
 
 
-
-
+<div>
 <h3>图表</h3>
 <div class="panelEcharts">
   <div id="barEcharts" class="echarts" hidden="hidden"></div>
@@ -312,10 +318,9 @@
   <div id="lineEcharts" class="echarts" hidden="hidden"></div>
   <div id="radarEcharts" class="echarts" hidden="hidden"></div>
 </div>
+</div>
 
-  <script src="https://cdn.bootcss.com/echarts/3.7.2/echarts.min.js"></script>
-<!--  <script src="https://cdn.bootcss.com/echarts/3.7.2/echarts.min.js" defer></script>-->
-  <script src="https://cdn.bootcss.com/babel-polyfill/7.0.0-beta.2/polyfill.min.js"></script>
+
   <script src="index.js"></script>
 </body>
 </html>
