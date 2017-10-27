@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Echarts Generator Demo</title>
+  <link type="text/css" rel="stylesheet" href="index.css" />
+  <script src="https://cdn.bootcss.com/echarts/3.7.2/echarts.min.js"></script>
+  <script src="https://cdn.bootcss.com/babel-polyfill/7.0.0-beta.2/polyfill.min.js"></script>
+</head>
+<body>
+
+  <div>
+  <h1> Echarts Generator <a href="https://www.wjx.top/m/16963544.aspx"><button>戳此报名 CodingNow!</button></a></h1>
+  </div>
+
+
+  <div>
+  <!--for bar chart-->
+  <div id="barPanel" class="panel" hidden="hidden">
+    <h3>图表选项 bar</h3>
+    <div class="panelInput">
+      <span>
+        <select id="barType"> <!--图标类型选择-->
+          <option value="bar" selected="selected">&nbsp;&nbsp;条形图</option>
+          <option value="pie">&nbsp;&nbsp;饼形图</option>
+          <option value="line">&nbsp;&nbsp;折线图</option>
+          
+        </select>
+        <button onclick="chType('bar')">修改图表类型</button>
+      </span>
+      <input id="barTitle" type="text" placeholder="图表标题" value="某服装店经营情况表" onchange="chTitle('bar')">
+      <span>
+        <input id="barXAxis" type="text" placeholder="X 轴标题" value="商品种类" onchange="chAxis('bar', 'x')"><!--横坐标标题-->
+        <input id="barYAxis" type="text" placeholder="Y 轴标题" value="数据" onchange="chAxis('bar', 'y')"><!--纵坐标标题-->
+      </span>
+    </div>
+  </div>
+
+  <!--for pie chart-->
+  <div id="piePanel" class="panel" hidden="hidden">
+    <h3>图表选项 pie</h3>
+    <div class="panelInput">
+      <span>
+        <select id="pieType"> <!--图标类型选择-->
+          <option value="bar">&nbsp;&nbsp;条形图</option>
+          <option value="pie" selected="selected">&nbsp;&nbsp;饼形图</option>
+          <option value="line">&nbsp;&nbsp;折线图</option>
+          
+        </select>
+        <button onclick="chType('pie')">修改图表类型</button>
+      </span>
+      <input id="pieTitle" type="text" placeholder="图表标题" value="某公司客户来源" onchange="chTitle('pie')">
+    </div>
+  </div>
+
+  <!--for line chart-->
+  <div id="linePanel" class="panel" hidden="hidden">
+    <h3>图表选项 line</h3>
+    <div class="panelInput">
+      <span>
+        <select id="lineType"> <!--图标类型选择-->
+          <option value="bar">&nbsp;&nbsp;条形图</option>
+          <option value="pie">&nbsp;&nbsp;饼形图</option>
+          <option value="line" selected="selected">&nbsp;&nbsp;折线图</option>
+          
+        </select>
+        <button onclick="chType('line')">修改图表类型</button>
+      </span>
+      <input id="lineTitle" type="text" placeholder="图表标题" value="Weather forecast for next week" onchange="chTitle('line')">
+      <span>
+        <input id="lineXAxis" type="text" placeholder="X 轴标题" value="day" onchange="chAxis('line', 'x')"><!--横坐标标题-->
+        <input id="lineYAxis" type="text" placeholder="Y 轴标题" value="temp(°C)" onchange="chAxis('line', 'y')"><!--纵坐标标题-->
+      </span>
+    </div>
+  </div>
+
+  <!--for radar chart-->
+  <div id="radarPanel" class="panel" hidden="hidden">
+    <h3>图表选项 radar</h3>
+    <div class="panelInput">
+      <span>
+        <select id="radarType"> <!--图标类型选择-->
+          <option value="bar">&nbsp;&nbsp;条形图</option>
+          <option value="pie">&nbsp;&nbsp;饼形图</option>
+          <option value="line">&nbsp;&nbsp;折线图</option>
+        </select>
+        <button onclick="chType('radar')">修改图表类型</button>
+      </span>
+      <input id="radarTitle" type="text" placeholder="图表标题" value="2年F班学生测验水平(数值虚构)" onchange="chTitle('radar')">
+    </div>
+  </div>
+  </div>
+
+
+  <div>
+    <h3>图表</h3>
+    <div class="panelEcharts">
+      <div id="barEcharts" class="echarts" hidden="hidden"></div>
+      <div id="pieEcharts" class="echarts" hidden="hidden"></div>
+      <div id="lineEcharts" class="echarts" hidden="hidden"></div>
+      <div id="radarEcharts" class="echarts" hidden="hidden"></div>
+    </div>
+  </div>
+
+
+
+  <div>
+  <!-- for bar chart -->
+  <div class="dataDisp" id="barDataDisp" hidden="hidden"><!--数据表格--><!--此处不会根据上面的输入值来变动表格行数-->
+    <h3>数据 bar</h3>
+    <div class="panelTable">
+    <table class="table" id="barTable">
+      <thead id="barTableHead">
+        <tr>
+          <th id="barSeriesName">SeriesName</th>
+          <th id="barKeyHead">key</th>
+          <th id="barValueHead">value</th>
+          <th> ＋/－ </th>
+        </tr>
+      </thead>
+      <tbody id="barTableBody">
+        <tr>
+          <td class="seriesNames">销量</td>
+          <td class="keys">衬衫</td>
+          <td class="values">20</td>
+          <td><button onclick="deleteLine(this);updateBarOps();updateBarData()">－</button></td>
+        </tr>
+        <tr>
+          <td class="seriesNames">利润</td>
+          <td class="keys">衬衫</td>
+          <td class="values">36</td>
+          <td><button onclick="deleteLine(this);updateBarOps();updateBarData()">－</button></td>
+        </tr>
+        <tr>
+          <td class="seriesNames">销量</td>
+          <td class="keys">羊毛衫</td>
+          <td class="values">10</td>
+          <td><button onclick="deleteLine(this);updateBarOps();updateBarData()">－</button></td>
+        </tr>
+        <tr>
+          <td class="seriesNames">利润</td>
+          <td class="keys">羊毛衫</td>
+          <td class="values">10</td>
+          <td><button onclick="deleteLine(this);updateBarOps();updateBarData()">－</button></td>
+        </tr>
+        <tr>
+          <td class="seriesNames">销量</td>
+          <td class="keys">雪纺衫</td>
+          <td class="values">20</td>
+          <td><button onclick="deleteLine(this);updateBarOps();updateBarData()">－</button></td>
+        </tr>
+        <tr>
+          <td class="seriesNames">利润</td>
+          <td class="keys">雪纺衫</td>
+          <td class="values">25</td>
+          <td><button onclick="deleteLine(this);updateBarOps();updateBarData()">－</button></td>
+        </tr>
+        <tr>
+          <td class="seriesNames">销量</td>
+          <td class="keys">裤子</td>
+          <td class="values">20</td>
+          <td><button onclick="deleteLine(this);updateBarOps();updateBarData()">－</button></td>
+        </tr>
+        <tr>
+          <td class="seriesNames">利润</td>
+          <td class="keys">裤子</td>
+          <td class="values">33</td>
+          <td><button onclick="deleteLine(this);updateBarOps();updateBarData()">－</button></td>
+        </tr>
+        <tr>
+          <td class="seriesNames">销量</td>
+          <td class="keys">高跟鞋</td>
+          <td class="values">9</td>
+          <td><button onclick="deleteLine(this);updateBarOps();updateBarData()">－</button></td>
+        </tr>
+        <tr>
+          <td class="seriesNames">利润</td>
+          <td class="keys">高跟鞋</td>
+          <td class="values">20</td>
+          <td><button onclick="deleteLine(this);updateBarOps();updateBarData()">－</button></td>
+        </tr>
+        <tr>
+          <td class="seriesNames">销量</td>
+          <td class="keys">袜子</td>
+          <td class="values">40</td>
+          <td><button onclick="deleteLine(this);updateBarOps();updateBarData()">－</button></td>
+        </tr>
+        <tr>
+          <td class="seriesNames">利润</td>
+          <td class="keys">袜子</td>
+          <td class="values">20</td>
+          <td><button onclick="deleteLine(this);updateBarOps();updateBarData()">－</button></td>
+        </tr>
+        <tr>
+          <td id="barSeriesNamesChCell" class="seriesNamesChCell">
+            <input list="barSeries" placeholder="选择/输入">
+            <datalist id="barSeries">
+              <option value="系列1" class="barSeriesOps">
+            </datalist>
+          </td>
+          <td>
+            <input id="barKeyInput" class="keyInputs" type="text" placeholder="在此输入key">
+          </td>
+          <td>
+            <input id="barValueInput" class="valueInputs" type="number" placeholder="在此输入value">
+          </td>
+          <td class="submitCell">
+              <button onclick="submitBarData();updateBarData()">＋</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  </div>
+
+  <!-- for pie chart -->
+  <div class="dataDisp" id="pieDataDisp" hidden="hidden"><!--数据表格--><!--此处不会根据上面的输入值来变动表格行数-->
+    <h3>数据 pie</h3>
+    <div class="panelTable">
+    <table class="table">
+      <thead id="tableHead">
+      <tr>
+        <th id="keyHead">key</th>
+        <th id="valueHead">value</th>
+        <th> ＋/－ </th>
+      </tr>
+      </thead>
+      <tbody id="tableBody">
+      <tr>
+        <td class="keys">直接访问</td>
+        <td class="values">335</td>
+        <td><button onclick="deleteLine(this);updatePieData()">－</button></td>
+      </tr>
+      <tr>
+        <td class="keys">邮件营销</td>
+        <td class="values">310</td>
+        <td><button onclick="deleteLine(this);updatePieData()">－</button></td>
+      </tr>
+      <tr>
+        <td class="keys">联盟广告</td>
+        <td class="values">274</td>
+        <td><button onclick="deleteLine(this);updatePieData()">－</button></td>
+      </tr>
+      <tr>
+        <td class="keys">视频广告</td>
+        <td class="values">235</td>
+        <td><button onclick="deleteLine(this);updatePieData()">－</button></td>
+      </tr>
+
+
+      <tr>
+        <td class="keys">搜索引擎</td>
+        <td class="values">400</td>
+        <td><button onclick="deleteLine(this);updatePieData()">－</button></td>
+      </tr>
+      <tr>
+        <td>
+          <input id="pieKeyInput" type="text" placeholder="在此输入key">
+        </td>
+        <td>
+          <input id="pieValueInput" type="number" placeholder="在此输入value">
+        </td>
+        <td class="submitCell">
+          <button onclick="submitPieData(this);updatePieData()">＋</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  </div>
+
+  <!--for line chart-->
+  <div class="dataDisp" id="lineDataDisp" hidden="hidden"><!--数据表格--><!--此处不会根据上面的输入值来变动表格行数-->
+    <h3>数据 line</h3>
+    <div class="panelTable">
+    <table class="table" id="lineTable">
+      <thead id="lineTableHead">
+      <tr>
+        <th id="lineSeriesName">SeriesName</th>
+        <th id="lineKeyHead">key</th>
+        <th id="lineValueHead">value</th>
+        <th> ＋/－ </th>
+      </tr>
+      </thead>
+      <tbody id="lineTableBody">
+      <tr>
+        <td class="seriesNames">highest</td>
+        <td class="keys">Mon.</td>
+        <td class="values">11</td>
+        <td><button onclick="deleteLine(this);updateLineOps();updateLineData()">－</button></td>
+      </tr>
+      <tr>
+        <td class="seriesNames">lowest</td>
+        <td class="keys">Mon.</td>
+        <td class="values">1</td>
+        <td><button onclick="deleteLine(this);updateLineOps();updateLineData()">－</button></td>
+      </tr>
+      <tr>
+        <td class="seriesNames">highest</td>
+        <td class="keys">Tue.</td>
+        <td class="values">11</td>
+        <td><button onclick="deleteLine(this);updateLineOps();updateLineData()">－</button></td>
+      </tr>
+      <tr>
+        <td class="seriesNames">lowest</td>
+        <td class="keys">Tue.</td>
+        <td class="values">-2</td>
+        <td><button onclick="deleteLine(this);updateLineOps();updateLineData()">－</button></td>
+      </tr>
+      <tr>
+        <td class="seriesNames">highest</td>
+        <td class="keys">Wed.</td>
+        <td class="values">15</td>
+        <td><button onclick="deleteLine(this);updateLineOps();updateLineData()">－</button></td>
+      </tr>
+      <tr>
+        <td class="seriesNames">lowest</td>
+        <td class="keys">Wed.</td>
+        <td class="values">2</td>
+        <td><button onclick="deleteLine(this);updateLineOps();updateLineData()">－</button></td>
+      </tr>
+      <tr>
+        <td class="seriesNames">highest</td>
+        <td class="keys">Thu.</td>
+        <td class="values">13</td>
+        <td><button onclick="deleteLine(this);updateLineOps();updateLineData()">－</button></td>
+      </tr>
+      <tr>
+        <td class="seriesNames">lowest</td>
+        <td class="keys">Thu.</td>
+        <td class="values">5</td>
+        <td><button onclick="deleteLine(this);updateLineOps();updateLineData()">－</button></td>
+      </tr>
+      <tr>
+        <td class="seriesNames">highest</td>
+        <td class="keys">Fri.</td>
+        <td class="values">12</td>
+        <td><button onclick="deleteLine(this);updateLineOps();updateLineData()">－</button></td>
+      </tr>
+      <tr>
+        <td class="seriesNames">lowest</td>
+        <td class="keys">Fri.</td>
+        <td class="values">3</td>
+        <td><button onclick="deleteLine(this);updateLineOps();updateLineData()">－</button></td>
+      </tr>
+      <tr>
+        <td class="seriesNames">highest</td>
+        <td class="keys">Sat.</td>
+        <td class="values">13</td>
+        <td><button onclick="deleteLine(this);updateLineOps();updateLineData()">－</button></td>
+      </tr>
+      <tr>
+        <td class="seriesNames">lowest</td>
+        <td class="keys">Sat.</td>
+        <td class="values">2</td>
+        <td><button onclick="deleteLine(this);updateLineOps();updateLineData()">－</button></td>
+      </tr>
+      <tr>
+        <td class="seriesNames">highest</td>
+        <td class="keys">Sun.</td>
+        <td class="values">10</td>
+        <td><button onclick="deleteLine(this);updateLineOps();updateLineData()">－</button></td>
+      </tr>
+      <tr>
+        <td class="seriesNames">lowest</td>
+        <td class="keys">Sun.</td>
+        <td class="values">0</td>
+        <td><button onclick="deleteLine(this);updateLineOps();updateLineData()">－</button></td>
+      </tr>
+      <tr>
+        <td id="lineSeriesNamesChCell" class="seriesNamesChCell">
+          <input type="text" list="lineSeries" placeholder="选择/输入">
+          <datalist id="lineSeries">
+            <option value="系列1" class="lineSeriesOps">
+          </datalist>
+        </td>
+        <td>
+          <input id="lineKeyInput" class="keyInputs" type="text" placeholder="在此输入key">
+        </td>
+        <td>
+          <input id="lineValueInput" class="valueInputs" type="number" placeholder="在此输入value">
+        </td>
+        <td class="submitCell">
+          <button onclick="submitLineData(this);updateLineData()">＋</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  </div>
+
+  <!--for radar chart-->
+  <div class="dataDisp" id="radarDataDisp" hidden="hidden"><!--数据表格--><!--此处不会根据上面的输入值来变动表格行数-->
+    <h3>数据 radar</h3>
+    <div class="panelTable">
+    <table class="table" id="radarTable">
+      <thead id="radarTableHead">
+      <tr>
+        <th id="radarSeriesName" rowspan="2">
+          SeriesName
+        </th>
+        <th id="radarValueHead" colspan="5">
+          <span>
+            <span id="pHolder1">&nbsp;</span>
+            values
+            <span id="addRadarIndiBox">
+              <input id="addRadarIndi" placeholder=" 新增指标">
+              <button onclick="addCol()">＋</button>
+            </span>
+          </span>
+        </th>
+        <th rowspan="2"> ＋/－ </th>
+      </tr>
+      <tr>
+        <th>古文<button onclick="delCol(this, 1)">－</button></th>
+        <th>数学<button onclick="delCol(this, 2)">－</button></th>
+        <th>英语<button onclick="delCol(this, 3)">－</button></th>
+        <th>物理<button onclick="delCol(this, 4)">－</button></th>
+        <th>化学<button onclick="delCol(this, 5)">－</button></th>
+      </tr>
+      </thead>
+      <tbody id="radarTableBody">
+      <tr class="S/VGroups">
+        <td class="seriesNames">吉井明久</td>
+        <td class="values">15</td>
+        <td class="values">16</td>
+        <td class="values">17</td>
+        <td class="values">20</td>
+        <td class="values">18</td>
+        <td><button onclick="deleteLine(this);updateRadarOps();updateRadarData()">－</button></td>
+        <!--如果改动上一行 相应要改动 addCol函数-->
+      </tr>
+      <tr class="S/VGroups">
+        <td class="seriesNames">吉井明久</td>
+        <td class="values">16</td>
+        <td class="values">18</td>
+        <td class="values">12</td>
+        <td class="values">14</td>
+        <td class="values">22</td>
+        <td><button onclick="deleteLine(this);updateRadarOps();updateRadarData()">－</button></td>
+        <!--如果改动上一行 相应要改动 addCol函数-->
+      </tr>
+      <tr class="S/VGroups">
+        <td class="seriesNames">吉井明久</td>
+        <td class="values">13</td>
+        <td class="values">15</td>
+        <td class="values">16</td>
+        <td class="values">33</td>
+        <td class="values">11</td>
+        <td><button onclick="deleteLine(this);updateRadarOps();updateRadarData()">－</button></td>
+        <!--如果改动上一行 相应要改动 addCol函数-->
+      </tr>
+      <tr class="S/VGroups">
+        <td class="seriesNames">姬路瑞希</td>
+        <td class="values">45</td>
+        <td class="values">30</td>
+        <td class="values">55</td>
+        <td class="values">26</td>
+        <td class="values">29</td>
+        <td><button onclick="deleteLine(this);updateRadarOps();updateRadarData()">－</button></td>
+      </tr>
+      <tr class="S/VGroups">
+        <td class="seriesNames">姬路瑞希</td>
+        <td class="values">98</td>
+        <td class="values">100</td>
+        <td class="values">99</td>
+        <td class="values">93</td>
+        <td class="values">95</td>
+        <td><button onclick="deleteLine(this);updateRadarOps();updateRadarData()">－</button></td>
+      </tr>
+      <tr class="S/VGroups">
+        <td class="seriesNames">姬路瑞希</td>
+        <td class="values">97</td>
+        <td class="values">99</td>
+        <td class="values">100</td>
+        <td class="values">90</td>
+        <td class="values">100</td>
+        <td><button onclick="deleteLine(this);updateRadarOps();updateRadarData()">－</button></td>
+      </tr>
+      <tr class="S/VGroups">
+        <td class="seriesNames">岛田美波</td>
+        <td class="values">2</td>
+        <td class="values">80</td>
+        <td class="values">35</td>
+        <td class="values">26</td>
+        <td class="values">43</td>
+        <td><button onclick="deleteLine(this);updateRadarOps();updateRadarData()">－</button></td>
+      </tr>
+      <tr class="S/VGroups">
+        <td class="seriesNames">岛田美波</td>
+        <td class="values">6</td>
+        <td class="values">91</td>
+        <td class="values">42</td>
+        <td class="values">29</td>
+        <td class="values">53</td>
+        <td><button onclick="deleteLine(this);updateRadarOps();updateRadarData()">－</button></td>
+      </tr>
+      <tr class="S/VGroups">
+        <td class="seriesNames">岛田美波</td>
+        <td class="values">7</td>
+        <td class="values">86</td>
+        <td class="values">35</td>
+        <td class="values">59</td>
+        <td class="values">26</td>
+        <td><button onclick="deleteLine(this);updateRadarOps();updateRadarData()">－</button></td>
+      </tr>
+      </tbody>
+      <tfoot>
+      <tr>
+        <td id="radarSeriesNamesChCell" class="seriesNamesChCell">
+          <input list="radarSeries" placeholder="输入/选择">
+          <datalist id="radarSeries">
+            <option value="系列1" class="radarSeriesOps">
+          </datalist>
+        </td>
+        <td><input class="valueInputs" type="number" placeholder="指标的值"></td>
+        <td><input class="valueInputs" type="number" placeholder="指标的值"></td>
+        <td><input class="valueInputs" type="number" placeholder="指标的值"></td>
+        <td><input class="valueInputs" type="number" placeholder="指标的值"></td>
+        <td><input class="valueInputs" type="number" placeholder="指标的值"></td>
+        <td class="submitCell" ><!--如果要改这个标签的属性需要同时改动JS-->
+          <button onclick="submitRadarData(this);updateRadarData()">＋</button>
+        </td>
+      </tr>
+      </tfoot>
+    </table>
+  </div>
+  </div>
+  </div>
+
+
+
+
+
+
+  <script src="index.js"></script>
+</body>
+</html>
